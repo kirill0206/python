@@ -7,7 +7,7 @@ __author__ = 'Aristarkhov Kirill Viktorovich'
 #если такой корень вообще можно извлечь
 #Пример: Дано: [2, -5, 8, 9, -25, 25, 4] Результат: [3, 5, 2]
 import math
-numList = [1,5,9,-2,4,2,78,-64,16]
+numList = [1, 5, 9, -2, 4, 2, 78, -64, 16]
 newNumList = []
 for item in numList:
     if(item >= 0):
@@ -44,8 +44,8 @@ print("=" * 80)
 import random
 num3List = []
 n = 20
-for rand in range (n):
-    num3List.append(random.randint(-100,100))
+for rand in range(n):
+    num3List.append(random.randint(-100, 100))
 
 print(num3List)
 print("=" * 80)
