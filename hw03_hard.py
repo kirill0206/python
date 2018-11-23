@@ -22,24 +22,25 @@ def print_menu(lst_menu):
     print("=" * 80)
 
 
-def add_menu():
+def add_menu(lst_menu):
     while True:
-        number  = input("Введите номер пункта меню который надо добавить: ")
-        if check_num(number, menu):
+        number = input("Введите номер пункта меню который надо добавить: ")
+        if check_num(number, lst_menu):
              break
-    number = int(number)
+    number = int(number) - 1
     name = input("Введите название пункта меню: ")
-    menu = menu[:number] + [name] + menu[number:]
+    return lst_menu[:number] + [name] + lst_menu[number:]
 
-
-def del_menu():
+def del_menu(lst_menu):
     while True:
         number  = input("Введите номер пункта меню который надо удалить: ")
-        if check_num(number, menu):
+        if check_num(number, lst_menu):
              break
         else:
             print("Введен неправильный номер меню")
-    menu = menu[:number-1] + menu[number:]
+
+    number = int(number)
+    return lst_menu[:number-1] + lst_menu[number:]
 
 
 def check_num(num, lst_menu) -> bool:
@@ -50,25 +51,29 @@ def check_num(num, lst_menu) -> bool:
     return False
 
 
-def change_menu():
+def change_menu(lst_menu):
     print("Вы вырбрали поменять пункты местами.")
     while True:
         number1  = input("Введите номер 1 пункта: ")
-        if check_num(number1, menu):
+        if check_num(number1, lst_menu):
              break
         else:
             print("Введен неправильный номер меню")
+    number1 = int(number1) - 1
 
     while True:
         number2  = input("Введите номер 2 пункта: ")
-        if check_num(number2, menu):
+        if check_num(number2, lst_menu):
             if number2 != number1:
                  break
             else:
                 print("Необходимо выбрать другой номер, не равный номеру первого пункта!")
         else:
             print("Введен неправильный номер меню")
-    menu[number1], menu[number2] = menu[number2], menu[number1]
+    number2 = int(number2) - 1
+
+    lst_menu[number1], lst_menu[number2] = lst_menu[number2], lst_menu[number1]
+    return lst_menu
 
 menu = ["Добавить", "Удалить", "Распечатать", "Посчитать", "Выйти"]
 actions = ["Напечатать меню", "Добавить пункт меню", "Удалить пункт меню", "Поменять пунты местами", "Выйти"]
@@ -93,13 +98,13 @@ while True:
         print_menu(menu)
 
     if user_answer == 2:
-        add_menu()
+        menu = add_menu(menu)
 
     if user_answer == 3:
-        del_menu()
+        menu = del_menu(menu)
 
     if user_answer == 4:
-        chenge_menu()
+        menu = change_menu(menu)
 
     if user_answer == 5:   # len(actions) проверка что не выбрана команда "Выйти"
         break
