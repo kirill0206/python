@@ -91,41 +91,51 @@ for i in range(10):
 
 
 def get_matrix(n_matr):
-    return [[[0] for i in range(n_matr)] for j in range(n_matr)]
+    return [[0 for i in range(n_matr)] for j in range(n_matr)]
 
 
-def change_dir(dx, dy):
-    if (dx == 1 and dy == 0):
-        dx = 0
-        dy = 1
+def change_dir():
+    global dx
+    global dy
+
     if (dx == 0 and dy == 1):
-        dx = -1
-        dy = 0
-    if (dx == -1 and dy == 0):
-        dx = 0
-        dy = -1
-    if (dx == 0 and dy == -1):
         dx = 1
         dy = 0
-    return dx,dy
+    elif(dx == 1 and dy == 0):
+        dx = 0
+        dy = -1
+    elif (dx == 0 and dy == -1):
+        dx = -1
+        dy = 0
+    elif (dx == -1 and dy == 0):
+        dx = 0
+        dy = 1
+
 
 user_n = int(input("Введите положительное целое число: "))
 
 matrix_sc = get_matrix(user_n)
 init_count = user_n ** 2
 init_n = 1
-dx = 1
-dy = 0
+dx = 0
+dy = 1
 ix = 0
 iy = 0
 
 while init_n <= init_count:
     matrix_sc[ix][iy] = init_n
-    if matrix_sc[ix + dx][iy + dy] != 0 or 0 <= (ix + dx) < user_n or 0 <= (iy + dy) < user_n:
-        dx,dy = change_dir(dx, dy)
+
+
+    if 0 > (ix + dx) or (ix + dx) == (user_n) or 0 > (iy + dy) or  (iy + dy) == (user_n):
+        change_dir()
+    if matrix_sc[ix + dx][iy + dy] != 0:
+        change_dir()
 
     ix += dx
     iy += dy
     init_n += 1
 
-print(matrix_sc)
+for row in matrix_sc:
+    for cel in row:
+        print('{:4d}'.format(cel), end=" ")
+    print("")
