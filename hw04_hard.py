@@ -13,35 +13,37 @@ def check_lines(i, j):
 
     result = []
 
-    # check in Z scale
-    if 1 in matr[i][j]:
+    #check in Z plane
+    if 1 not in matrix[i][j]:
         result.append([i, j, 0])
 
-    # check in Y scale
+    #check in Y plane
     condition = True
     for x in range(len(matrix)):
-        if matrix[i][x][j] != 0:
+        if matrix[i][x][j] == 1:
             condition = False
     if condition:
         result.append([i, 0, j])
 
-    # check in X scale
+    #check in X plane
     condition = True
     for x in range(len(matrix)):
-        if matrix[x][i][j] != 0:
+        if matrix[x][i][j] == 1:
             condition = False
     if condition:
         result.append([0, i, j])
     return result
 
 
-n = 3
+n = int(input())
+
 matrix = [[[random.randint(0, 1) for i in range(n)] for j in range(n)] for k in range(n)]
+
 for i in range(n):
     for j in range(n):
         lines = check_lines(i, j)
         if len(lines) != 0:
-            for k in len(lines):
+            for k in range(len(lines)):
                 print("Координаты просвета:\n x = {:d}\n y = {:d}\n z = {:d}".format(lines[k][0], lines[k][1], lines[k][2]))
 
 
