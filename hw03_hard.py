@@ -97,14 +97,14 @@ while True:
     if user_answer == 1:
         print_menu(menu)
 
-    if user_answer == 2:
+    elif user_answer == 2:
         menu = add_menu(menu)
 
-    if user_answer == 3:
+    elif user_answer == 3:
         menu = del_menu(menu)
 
-    if user_answer == 4:
+    elif user_answer == 4:
         menu = change_menu(menu)
 
-    if user_answer == 5:   # len(actions) проверка что не выбрана команда "Выйти"
+    elif user_answer == 5:   # len(actions) проверка что не выбрана команда "Выйти"
         break
