@@ -1,8 +1,7 @@
 
 __author__ = 'Aristarkhov Kirill Viktorovich'
 
-
-#EASY-NORMAL
+# EASY-NORMAL
 # Задача-1:
 #
 # Создать класс треугольник и реализовать в нем конструктор, методы для площади, периметра и вывод на экран.
@@ -28,26 +27,34 @@ class Point:
 
 class Triangle:
 
-    p1 = Point()
-    p2 = Point()
-    p3 = Point()
+#    p1 = Point()
+#    p2 = Point()
+#    p3 = Point()
 
     def __init__(self, x1, y1, x2, y2, x3, y3):
-        p1 = Point(x1, y1)
-        p2 = Point(x2, y2)
-        p3 = Point(x3, y3)
-
+        if (x3 * (y2 - y1) - y3 * (x2 - x1)) == (x1 * y2 - x2 * y1):
+            p1 = Point(x1, y1)
+            p2 = Point(x2, y2)
+            p3 = Point(x3, y3)
+        else:
+            print("Треугольник с такими вершинами нельзя создать")
+            exit(1)
 
     def draw_triangle(self):
-        p1.draw_point()
-        p2.draw_point()
-        p3.draw_point()
-
+        return f"({self.p1.x},{self.p1.y},{self.p2.x},{self.p2.y},{self.p3.x},{self.p3.y})"
 
     def get_square(self):
-        return abs((x1 - x3) * (y2 - y3) - (x2 - x3) * (y1 - y3)) / 2
-
+        return abs((self.p1.x - self.p3.x) * (self.p2.y - self.p3.y) - (self.p2.x - self.p3.x) *
+                   (self.p1.y - self.p3.y)) / 2
 
     def get_perimeter(self):
-        return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0,5 + ((x2 - x3) ** 2 + (y2 - y3) ** 2) ** 0,5 + \
-               ((x3 - x1) ** 2 + (y3 - y1) ** 2) ** 0,5
+        return ((self.p1.x - self.p2.x) ** 2 + (self.p1.y - self.p2.y) ** 2) ** 0.5 + \
+               ((self.p2.x - self.p3.x) ** 2 + (self.p2.y - self.p3.y) ** 2) ** 0.5 + \
+               ((self.p3.x - self.p1.x) ** 2 + (self.p3.y - self.p1.y) ** 2) ** 0.5
+
+
+# test = Triangle(1, 1, 2, 2, 3, 3)
+# print(test.draw_triangle())
+
+test1 = Point(1, 2)
+print(test1.draw_point())
