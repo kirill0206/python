@@ -57,32 +57,48 @@ class Card:
         pass
 
     def __init__(self):
-        self.card_numbers = _generate_card()
+        self.card_numbers = Card._generate_card()
 
     # !при удалении удаляем иликак-то изменяем цифру?
     def remove_number_from_card(self, number):
         if number in self.card_numbers:
             self.card_numbers.remove(number)
 
+    def print_card(self):
+        pass
+
+    def remove_keg(self, keg):
 
 class Player:
 
     def __init__(self, name):
         self.name = name
-        self.card = Dialer.set_card()
+        self.card = None
+
+    def action(self, keg):
+        act = input()
+        if act.lower() == 'y':
+            if keg in self.card:
+                self.card.remove(keg)
+                return None
+            else:
+                return "End"
+        if act.lower() == 'n':
+            if keg in self.card:
+                return "End"
+
 
 
 class Dialer:
 
     def __init__(self):
-        self.keg = list(range(1, 90))
+        self.keg_in_bag = list(range(1, 90))
 
     def get_keg(self):
-        while True:
-            keg = random.randint(1,90)
-            if keg in self.keg:
-                self.keg.remove(keg)
-                return keg
+        random.shuffle(self.keg_in_bag)
+        keg = self.keg_in_bag.pop()
+        print('Новый бочонок: {} (осталось {})'.format(keg, len(self.keg_in_bag)))
+        return keg
 
     def get_keg_list(self):
         return self.keg
@@ -91,12 +107,28 @@ class Dialer:
         card = Card()
         return card
 
+    @staticmethod
+    def say(words):
+        print(words)
 
 class Game:
 
-    player = Player("Player")
-    comp = Player("Computer")
-    dialer = Dialer()
-    player.card = dialer.set_card()
-    comp.card = dialer.set_card()
-    keg = dialer.get_keg()
+    def game_start(self):
+
+        player = Player("Player")
+        comp = Player("Computer")
+        dialer = Dialer()
+        player.card = dialer.set_card()
+        comp.card = dialer.set_card()
+
+        while player.is_loose or player.is_win or comp.is_win:
+            keg = dialer.get_keg()
+            player.card.print("Ваша карточка")
+            comp.card.print("Карточка компьютера")
+            dialer.say("Зачеркнуть цифру? (y/n)")
+            player.action(keg)
+
+
+
+
+
