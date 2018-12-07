@@ -64,6 +64,9 @@ class Card:
         if number in self.card_numbers:
             self.card_numbers.remove(number)
 
+    def check_to_win(self):
+        pass
+
     def print_card(self):
         pass
 
@@ -87,6 +90,8 @@ class Player:
             if keg in self.card:
                 return "End"
 
+    def is_win(self):
+        return self.card.check_to_win()
 
 
 class Dialer:
@@ -126,9 +131,14 @@ class Game:
             player.card.print("Ваша карточка")
             comp.card.print("Карточка компьютера")
             dialer.say("Зачеркнуть цифру? (y/n)")
-            player.action(keg)
+            if (player.action(keg) == "End"):
+                dialer.say("Игра закончена, Вы проиграли")
+                exit(0)
 
+            if player.is_win():
+                dialer.say("Выиграл игрок!")
+                break
 
-
-
-
+            if comp.is_win():
+                dialer.say("Выиграл компьютер")
+                break
