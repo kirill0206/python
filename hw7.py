@@ -60,17 +60,20 @@ class Card:
         self.card_numbers = Card._generate_card()
 
     # !при удалении удаляем иликак-то изменяем цифру?
-    def remove_number_from_card(self, number):
-        if number in self.card_numbers:
-            self.card_numbers.remove(number)
+    def remove(self, number):
+        for row in self:
+            for position in row:
+                if position == number:
+                    position == "({})".format(number)
 
     def check_to_win(self):
         pass
 
     def print_card(self):
-        pass
+        for row in self:
+            for number in row:
+                print('{}'.format(number))
 
-    def remove_keg(self, keg):
 
 class Player:
 
@@ -108,7 +111,8 @@ class Dialer:
     def get_keg_list(self):
         return self.keg
 
-    def set_card(self):
+    @staticmethod
+    def set_card():
         card = Card()
         return card
 
@@ -120,13 +124,13 @@ class Game:
 
     def game_start(self):
 
-        player = Player("Player")
-        comp = Player("Computer")
+        player = Player("Игрок")
+        comp = Player("Компьютер")
         dialer = Dialer()
         player.card = dialer.set_card()
         comp.card = dialer.set_card()
 
-        while player.is_loose or player.is_win or comp.is_win:
+        while True:
             keg = dialer.get_keg()
             player.card.print("Ваша карточка")
             comp.card.print("Карточка компьютера")
@@ -136,9 +140,9 @@ class Game:
                 exit(0)
 
             if player.is_win():
-                dialer.say("Выиграл игрок!")
+                dialer.say("Выиграл {}!".format(player.name))
                 break
 
             if comp.is_win():
-                dialer.say("Выиграл компьютер")
+                dialer.say("Выиграл {}!".format(comp.name))
                 break
